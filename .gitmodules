@@ -1,0 +1,8 @@
+[submodule "collection-home"]
+	path = _layouts/modules/collection-home
+	url = https://github.com/liquid-utilities/collection-home.git
+	branch = master
+[submodule "feed-atom"]
+	path = _layouts/modules/feed-atom
+	url = https://github.com/liquid-utilities/feed-atom.git
+	branch = master

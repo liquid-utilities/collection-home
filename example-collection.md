@@ -1,0 +1,17 @@
+---
+layout: modules/collection-home
+title: Example Collection
+collection_name: example_collection
+list_title: Pages available within Example Collection
+permalink: /:collection/:name:output_ext
+---
+
+
+
+> This text will be compiled and rendered prior to list of collection pages!
+
+
+## Example Collection Home
+
+
+Because collection home pages are MarkDown files any other formatting tricks should operate as expected.
