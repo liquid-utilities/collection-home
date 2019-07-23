@@ -98,6 +98,7 @@ Update/upgrade submodules via
 
 ```YAML
 ---
+layout: modules/collection-home/collection-home
 title: Your Collection
 collection_name: your_collection
 list_title: Pages available within Your Collection
@@ -119,6 +120,7 @@ Additionally targeting by collection name enables...
 
 ```YAML
 ---
+layout: modules/collection-home/collection-home
 title: Your Collection
 collection_name: your_collection
 list_title: Pages available within Your Collection
@@ -136,6 +138,7 @@ Each collection page should contain the following FrontMatter...
 
 
 ```YAML
+layout: page
 title: Title for an individual post
 date: 2019-07-21 11:42:11 -0300
 description: Example collection page about something
