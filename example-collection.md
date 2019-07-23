@@ -1,7 +1,7 @@
 ---
 layout: modules/collection-home/collection-home
 title: Example Collection
-collection_name: example_collection
+collection_name: example-collection
 list_title: Pages available within Example Collection
 permalink: /:collection/:name:output_ext
 ---
