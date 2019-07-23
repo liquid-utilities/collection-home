@@ -138,6 +138,7 @@ Each collection page should contain the following FrontMatter...
 
 
 ```YAML
+## Layout maybe `post` or really any available layout
 layout: page
 title: Title for an individual post
 date: 2019-07-21 11:42:11 -0300
@@ -200,6 +201,9 @@ This layout is written to operate without modifications **if** utilizing the Min
 
 
 ... In the future this theme may make an attempt to detect and auto link for themes available on GitHub Pages.
+
+
+Permalinks and underscore (**`_`**) generally are _sluggified_ such that _`file_name.md`_ transmutes into something like _`file-name.html`_
 
 
 ___
