@@ -31,9 +31,11 @@ author: S0AndS0
               {% continue %}
             {% elsif post.ext == '.xml' or post.ext == '.rss' %}
               {% assign has_rss_feed = true %}
+              {% assign feed_rss_url = post.url %}
               {% continue %}
             {% elsif post.ext == '.atom' %}
               {% assign has_atom_feed = true %}
+              {% assign feed_atom_url = post.url %}
               {% continue %}
             {% endif %}
 
@@ -85,7 +87,8 @@ author: S0AndS0
                 <svg class="svg-icon orange">
                   <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
                 </svg>
-                <a href="{{ page.collection_name | append: '/feed.xml' | relative_url }}">RSSv2</a>
+                <a href="{{ feed_rss_url | relative_url }}">RSSv2</a>
+                {% assign feed_rss_url = nil %}
               </span>
             {% endif %}
 
@@ -98,7 +101,8 @@ author: S0AndS0
                 {% else %}
                   or
                 {% endif %}
-                <a href="{{ page.collection_name | append: '/feed.atom' | relative_url }}">Atom</a>
+                <a href="{{ feed_atom_url | relative_url }}">Atom</a>
+                {% assign feed_atom_url = nil %}
               </span>
             {% endif %}
           </p>
