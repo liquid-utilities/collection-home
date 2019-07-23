@@ -15,9 +15,6 @@ plugins:
   - jekyll-github-metadata
 
 
-repository: liquid-utilities/collection-home
-
-
 ## Thanks be to - https://jekyllrb.com/docs/collections/
 collections_dir: documentation
 collections:
