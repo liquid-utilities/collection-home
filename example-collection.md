@@ -1,5 +1,5 @@
 ---
-layout: modules/collection-home
+layout: modules/collection-home/collection-home
 title: Example Collection
 collection_name: example_collection
 list_title: Pages available within Example Collection
