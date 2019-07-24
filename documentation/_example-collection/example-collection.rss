@@ -1,0 +1,9 @@
+---
+layout: modules/feed-rss2/feed-rss2
+title: Example Collection
+collection_name: example-collection
+collection_home: /example-collection/
+date: 2019-07-23 21:12:13 -0700
+content_type: xhtml
+permalink: /:collection/:name:output_ext
+---

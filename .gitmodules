@@ -6,3 +6,7 @@
 	path = _layouts/modules/feed-atom
 	url = https://github.com/liquid-utilities/feed-atom.git
 	branch = master
+[submodule "feed-rss2"]
+	path = _layouts/modules/feed-rss2
+	url = https://github.com/liquid-utilities/feed-rss2.git
+	branch = master
