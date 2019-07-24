@@ -10,7 +10,7 @@ time_to_live: 1800
 This is the content of an example page within an example collection.
 
 
-Check the [Feed Atom][master__collection_home] repository for quick start on utilizing code from this repository within your own GitHub Pages hosted sites.
+Check the [Collection Home][master__collection_home] repository for quick start on utilizing code from this repository within your own GitHub Pages hosted sites.
 
 
 
