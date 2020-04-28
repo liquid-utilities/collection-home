@@ -206,6 +206,32 @@ This layout is written to operate without modifications **if** utilizing the Min
 Permalinks and underscore (**`_`**) generally are _sluggified_ such that _`file_name.md`_ transmutes into something like _`file-name.html`_
 
 
+
+------
+
+
+Timezone offsets also require that `timezone` is set within the site `_config.yml` file; check [Wikipedia -- List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for mapping hints, eg...
+
+
+**`_config.yml`** snip...
+
+
+```YAML
+timezone: America/Los_Angeles
+```
+
+
+**`_your_collection/something-collected.md`** snip...
+
+
+```YAML
+date: 2019-07-21 11:42:11 -0800
+```
+
+
+... if `timezone` is not defined then built HTML documents will default to an offset of `0000` which will cause both the date (day) and time (hour) to be recalculated.
+
+
 ___
 
 
