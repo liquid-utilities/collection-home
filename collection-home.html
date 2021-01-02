@@ -38,7 +38,7 @@ author: S0AndS0
               {% assign feed_atom_url = post.url %}
               {% continue %}
             {% elsif post.ext == '.json' %}
-              {% if post.slug == 'feed' %}
+              {% if post.slug == 'feed' or post.slug == page.collection_name %}
                 {% assign has_json_feed = true %}
                 {% assign feed_json_url = post.url %}
               {% endif %}
