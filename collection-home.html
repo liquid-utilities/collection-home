@@ -37,6 +37,12 @@ author: S0AndS0
               {% assign has_atom_feed = true %}
               {% assign feed_atom_url = post.url %}
               {% continue %}
+            {% elsif post.ext == '.json' %}
+              {% if post.slug == 'feed' %}
+                {% assign has_json_feed = true %}
+                {% assign feed_json_url = post.url %}
+              {% endif %}
+              {% continue %}
             {% endif %}
 
             {% assign has_output = true %}
@@ -80,7 +86,7 @@ author: S0AndS0
       {% if has_output %}
         {{ workspace__collection__list }}{% assign workspace__collection__list = nil %}
 
-        {% if has_rss_feed or has_atom_feed %}
+        {% if has_rss_feed or has_atom_feed or has_rss_feed %}
           <p class="feed-subscribe">
             {% if has_rss_feed %}
               <span>
@@ -105,10 +111,27 @@ author: S0AndS0
                 {% assign feed_atom_url = nil %}
               </span>
             {% endif %}
+
+            {% if has_json_feed %}
+              <span>
+                {% if has_rss_feed or has_atom_feed %}
+                  or
+                {% elsif has_rss_feed != true and has_atom_feed != true %}
+                  <svg class="svg-icon orange">
+                    <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
+                  </svg>
+                {% endif %}
+                <a href="{{ feed_json_url | relative_url }}">JSON</a>
+                {% assign feed_json_url = nil %}
+              </span>
+            {% endif %}
           </p>
         {% endif %}
       {% endif %}
 
     {% endif %}
   </div>
-{% endcapture %}{{ workspace__collection_home | strip }}{% assign workspace__collection_home = nil %}
+{% endcapture %}{{ workspace__collection_home | strip | strip_newlines }}{% assign workspace__collection_home = nil %}
+{% comment %}
+  vim:filetype=liquid
+{% endcomment %}
