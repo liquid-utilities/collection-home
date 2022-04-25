@@ -86,7 +86,7 @@ author: S0AndS0
       {% if has_output %}
         {{ workspace__collection__list }}{% assign workspace__collection__list = nil %}
 
-        {% if has_rss_feed or has_atom_feed or has_rss_feed %}
+        {% if has_rss_feed or has_atom_feed or has_json_feed %}
           <p class="feed-subscribe">
             {% if has_rss_feed %}
               <span>
