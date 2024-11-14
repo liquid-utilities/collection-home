@@ -1,12 +1,15 @@
 ---
+vim: expandtab filetype=liquid
 layout: default
-version: 0.0.1
+version: 0.0.2
 license: AGPL-3.0
 author: S0AndS0
 ---
 {% capture workspace__collection_home %}
   {% assign target_collection = site[page.collection_name] %}
   {% assign date_format = site[site.theme].date_format | default: "%b %-d, %Y" %}
+  {% assign list_title = page.list_title | default: page.collection_name %}
+  {% assign list_title_id = list_title | slugify: "ascii" %}
 
 
   <div class="home">
@@ -24,7 +27,7 @@ author: S0AndS0
     {% assign has_rss_feed = false %}
     {% if target_collection.size > 0 %}{% comment %}<br> syntax highlighting  work-around #{% endcomment %}
       {% capture workspace__collection__list %}
-        <h2 class="post-list-heading">{{ page.list_title | default: page.collection_name }}</h2>
+        <h2 class="post-list-heading" id="{{ list_title_id }}">{{ list_title }}</h2>
         <ul class="post-list">
           {% for post in target_collection %}
             {% if page.relative_path == post.relative_path %}
@@ -86,7 +89,7 @@ author: S0AndS0
       {% if has_output %}
         {{ workspace__collection__list }}{% assign workspace__collection__list = nil %}
 
-        {% if has_rss_feed or has_atom_feed or has_json_feed %}
+        {% if has_rss_feed or has_atom_feed or has_rss_feed %}
           <p class="feed-subscribe">
             {% if has_rss_feed %}
               <span>
@@ -132,6 +135,3 @@ author: S0AndS0
     {% endif %}
   </div>
 {% endcapture %}{{ workspace__collection_home | strip | strip_newlines }}{% assign workspace__collection_home = nil %}
-{% comment %}
-  vim:filetype=liquid
-{% endcomment %}

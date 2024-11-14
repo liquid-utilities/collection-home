@@ -246,7 +246,7 @@ Legal bits of Open Source software
 
 ```
 Collection Home ReadMe documenting how things like this could be utilized
-Copyright (C) 2019  S0AndS0
+Copyright (C) 2024  S0AndS0
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
