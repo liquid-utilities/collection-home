@@ -6,12 +6,12 @@ license: AGPL-3.0
 author: S0AndS0
 ---
 {% capture workspace__collection_home %}
-  {% assign target_collection = site[page.collection_name] %}
-  {% assign date_format = site[site.theme].date_format | default: "%b %-d, %Y" %}
-  {% assign list_title = page.list_title | default: page.collection_name %}
-  {% assign posts_sort_by = page.posts_sort_by | default: nil %}
-  {% assign posts_reverse = page.posts_reverse | default: false %}
-  {% assign list_title_id = list_title | slugify: "ascii" %}
+  {% assign workspace__collection_home__target_collection = site[page.collection_name] %}
+  {% assign workspace__collection_home__date_format = site[site.theme].date_format | default: "%b %-d, %Y" %}
+  {% assign workspace__collection_home__list_title = page.list_title | default: page.collection_name %}
+  {% assign workspace__collection_home__posts_sort_by = page.posts_sort_by | default: nil %}
+  {% assign workspace__collection_home__posts_reverse = page.posts_reverse | default: false %}
+  {% assign list_title_id = workspace__collection_home__list_title | slugify: "ascii" %}
 
   <div class="home">
     {% if page.title %}
@@ -23,60 +23,60 @@ author: S0AndS0
     {% comment %}
       Builds list of posts
     {% endcomment %}
-    {% assign has_atom_feed = false %}
-    {% assign has_rss_feed = false %}
-    {% assign has_json_feed = false %}
-    {% if target_collection.size > 0 %}{% comment %}<br> syntax highlighting  work-around #{% endcomment %}
+    {% assign workspace__collection_home__has_atom_feed = false %}
+    {% assign workspace__collection_home__has_rss_feed = false %}
+    {% assign workspace__collection_home__has_json_feed = false %}
+    {% if workspace__collection_home__target_collection.size > 0 %}{% comment %}<br> syntax highlighting  work-around #{% endcomment %}
       {% capture workspace__collection__list %}
-        {% assign target_posts = '' | split: '' %}
-        {% for file in target_collection %}
-          {% if page.relative_path == file.relative_path %}
+        {% assign workspace__collection_home__target_posts = '' | split: '' %}
+        {% for workspace__collection_home__file in workspace__collection_home__target_collection %}
+          {% if page.relative_path == workspace__collection_home__file.relative_path %}
             {% continue %}
-          {% elsif file.ext == '.xml' or file.ext == '.rss' %}
-            {% assign has_rss_feed = true %}
-            {% assign feed_rss_url = file.url %}
-          {% elsif file.ext == '.atom' %}
-            {% assign has_atom_feed = true %}
-            {% assign feed_atom_url = file.url %}
-          {% elsif file.ext == '.json' %}
-            {% if file.slug == 'feed' or file.slug == page.collection_name %}
-              {% assign has_json_feed = true %}
-              {% assign feed_json_url = file.url %}
+          {% elsif workspace__collection_home__file.ext == '.xml' or workspace__collection_home__file.ext == '.rss' %}
+            {% assign workspace__collection_home__has_rss_feed = true %}
+            {% assign workspace__collection_home__feed_rss_url = workspace__collection_home__file.url %}
+          {% elsif workspace__collection_home__file.ext == '.atom' %}
+            {% assign workspace__collection_home__has_atom_feed = true %}
+            {% assign workspace__collection_home__feed_atom_url = workspace__collection_home__file.url %}
+          {% elsif workspace__collection_home__file.ext == '.json' %}
+            {% if workspace__collection_home__file.slug == 'feed' or workspace__collection_home__file.slug == page.collection_name %}
+              {% assign workspace__collection_home__has_json_feed = true %}
+              {% assign workspace__collection_home__feed_json_url = workspace__collection_home__file.url %}
             {% endif %}
           {% else %}
-            {% assign target_posts = target_posts | push: file %}
+            {% assign workspace__collection_home__target_posts = workspace__collection_home__target_posts | push: workspace__collection_home__file %}
           {% endif %}
         {% endfor %}
 
         {% comment %}
           Transpile list of posts into HTML
         {% endcomment %}
-        {% if target_posts.size %}
-          {% if posts_sort_by.size > 0 %}
-            {% assign target_posts = target_posts | sort: posts_sort_by %}
+        {% if workspace__collection_home__target_posts.size %}
+          {% if workspace__collection_home__posts_sort_by.size > 0 %}
+            {% assign workspace__collection_home__target_posts = workspace__collection_home__target_posts | sort: workspace__collection_home__posts_sort_by %}
           {% endif %}
 
-          {% if posts_reverse == true %}
-            {% assign target_posts = target_posts | reverse %}
+          {% if workspace__collection_home__posts_reverse == true %}
+            {% assign workspace__collection_home__target_posts = workspace__collection_home__target_posts | reverse %}
           {% endif %}
 
-          <h2 class="post-list-heading" id="{{ list_title_id }}">{{ list_title }}</h2>
+          <h2 class="post-list-heading" id="{{ list_title_id }}">{{ workspace__collection_home__list_title }}</h2>
           <ul class="post-list">
-            {% for post in target_posts %}
+            {% for workspace__collection_home__post in workspace__collection_home__target_posts %}
               <li>
-                <span class="post-meta">{{ post.date | date: date_format }}</span>
+                <span class="post-meta">{{ workspace__collection_home__post.date | date: workspace__collection_home__date_format }}</span>
                 <h3>
-                  <a class="post-link" href="{{ post.url | relative_url }}">
-                    {{ post.title | escape }}
+                  <a class="post-link" href="{{ workspace__collection_home__post.url | relative_url }}">
+                    {{ workspace__collection_home__post.title | escape }}
                   </a>
                 </h3>
-                {% if post.description %}
+                {% if workspace__collection_home__post.description %}
                   <blockquote>
-                    {{ post.description | markdownify | remove: '<p>' | remove: '</p>' }}
+                    {{ workspace__collection_home__post.description | markdownify | remove: '<p>' | remove: '</p>' }}
                   </blockquote>
-                {% elsif site.show_excerpts and post.excerpt %}
+                {% elsif site.show_excerpts and workspace__collection_home__post.excerpt %}
                   <blockquote>
-                    {{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
+                    {{ workspace__collection_home__post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
                   </blockquote>
                 {% endif %}
               </li>
@@ -101,52 +101,52 @@ author: S0AndS0
       {% comment %}
         Builds output for workspace__collection_home
       {% endcomment %}
-      {% if target_posts.size %}
+      {% if workspace__collection_home__target_posts.size %}
         {{ workspace__collection__list }}{% assign workspace__collection__list = nil %}
 
-        {% if has_rss_feed or has_atom_feed or has_rss_feed %}
+        {% if workspace__collection_home__has_rss_feed or workspace__collection_home__has_atom_feed or workspace__collection_home__has_rss_feed %}
           <p class="feed-subscribe">
-            {% if has_rss_feed %}
+            {% if workspace__collection_home__has_rss_feed %}
               <span>
                 <svg class="svg-icon orange">
                   <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
                 </svg>
-                <a href="{{ feed_rss_url | relative_url }}">RSSv2</a>
-                {% assign feed_rss_url = nil %}
+                <a href="{{ workspace__collection_home__feed_rss_url | relative_url }}">RSSv2</a>
+                {% assign workspace__collection_home__feed_rss_url = nil %}
               </span>
             {% endif %}
 
-            {% if has_atom_feed %}
+            {% if workspace__collection_home__has_atom_feed %}
               <span>
-                {% if has_rss_feed != true %}
+                {% if workspace__collection_home__has_rss_feed != true %}
                   <svg class="svg-icon orange">
                     <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
                   </svg>
                 {% else %}
                   or
                 {% endif %}
-                <a href="{{ feed_atom_url | relative_url }}">Atom</a>
-                {% assign feed_atom_url = nil %}
+                <a href="{{ workspace__collection_home__feed_atom_url | relative_url }}">Atom</a>
+                {% assign workspace__collection_home__feed_atom_url = nil %}
               </span>
             {% endif %}
 
-            {% if has_json_feed %}
+            {% if workspace__collection_home__has_json_feed %}
               <span>
-                {% if has_rss_feed or has_atom_feed %}
+                {% if workspace__collection_home__has_rss_feed or workspace__collection_home__has_atom_feed %}
                   or
-                {% elsif has_rss_feed != true and has_atom_feed != true %}
+                {% elsif workspace__collection_home__has_rss_feed != true and workspace__collection_home__has_atom_feed != true %}
                   <svg class="svg-icon orange">
                     <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
                   </svg>
                 {% endif %}
-                <a href="{{ feed_json_url | relative_url }}">JSON</a>
-                {% assign feed_json_url = nil %}
+                <a href="{{ workspace__collection_home__feed_json_url | relative_url }}">JSON</a>
+                {% assign workspace__collection_home__feed_json_url = nil %}
               </span>
             {% endif %}
           </p>
         {% endif %}
 
-        {% assign target_posts = nil %}
+        {% assign workspace__collection_home__target_posts = nil %}
       {% endif %}
 
     {% endif %}
