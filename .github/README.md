@@ -146,6 +146,26 @@ description: Example collection page about something
 ```
 
 
+Now available in version `0.0.3`, or higher, collection pages may now be sorted
+by FrontMatter key name, or order reversed, or both!
+
+
+**`your_collection.md`**
+
+
+```diff
+ ---
+ layout: modules/collection-home/collection-home
+ title: Your Collection
+ collection_name: your_collection
+ list_title: Pages available within Your Collection
++posts_sort_by: date
++posts_reverse: true
+ ---
+```
+
+
+
 ### Commit and Push
 [heading__commit_and_push]:
   #commit-and-push
