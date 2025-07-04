@@ -1,7 +1,7 @@
 ---
 vim: expandtab filetype=liquid
 layout: default
-version: 0.0.2
+version: 0.0.3
 license: AGPL-3.0
 author: S0AndS0
 ---
@@ -9,8 +9,9 @@ author: S0AndS0
   {% assign target_collection = site[page.collection_name] %}
   {% assign date_format = site[site.theme].date_format | default: "%b %-d, %Y" %}
   {% assign list_title = page.list_title | default: page.collection_name %}
+  {% assign posts_sort_by = page.posts_sort_by | default: nil %}
+  {% assign posts_reverse = page.posts_reverse | default: false %}
   {% assign list_title_id = list_title | slugify: "ascii" %}
-
 
   <div class="home">
     {% if page.title %}
@@ -22,53 +23,66 @@ author: S0AndS0
     {% comment %}
       Builds list of posts
     {% endcomment %}
-    {% assign has_output = false %}
     {% assign has_atom_feed = false %}
     {% assign has_rss_feed = false %}
     {% assign has_json_feed = false %}
     {% if target_collection.size > 0 %}{% comment %}<br> syntax highlighting  work-around #{% endcomment %}
       {% capture workspace__collection__list %}
-        <h2 class="post-list-heading" id="{{ list_title_id }}">{{ list_title }}</h2>
-        <ul class="post-list">
-          {% for post in target_collection %}
-            {% if page.relative_path == post.relative_path %}
-              {% continue %}
-            {% elsif post.ext == '.xml' or post.ext == '.rss' %}
-              {% assign has_rss_feed = true %}
-              {% assign feed_rss_url = post.url %}
-              {% continue %}
-            {% elsif post.ext == '.atom' %}
-              {% assign has_atom_feed = true %}
-              {% assign feed_atom_url = post.url %}
-              {% continue %}
-            {% elsif post.ext == '.json' %}
-              {% if post.slug == 'feed' or post.slug == page.collection_name %}
-                {% assign has_json_feed = true %}
-                {% assign feed_json_url = post.url %}
-              {% endif %}
-              {% continue %}
+        {% assign target_posts = '' | split: '' %}
+        {% for file in target_collection %}
+          {% if page.relative_path == file.relative_path %}
+            {% continue %}
+          {% elsif file.ext == '.xml' or file.ext == '.rss' %}
+            {% assign has_rss_feed = true %}
+            {% assign feed_rss_url = file.url %}
+          {% elsif file.ext == '.atom' %}
+            {% assign has_atom_feed = true %}
+            {% assign feed_atom_url = file.url %}
+          {% elsif file.ext == '.json' %}
+            {% if file.slug == 'feed' or file.slug == page.collection_name %}
+              {% assign has_json_feed = true %}
+              {% assign feed_json_url = file.url %}
             {% endif %}
+          {% else %}
+            {% assign target_posts = target_posts | push: file %}
+          {% endif %}
+        {% endfor %}
 
-            {% assign has_output = true %}
-            <li>
-              <span class="post-meta">{{ post.date | date: date_format }}</span>
-              <h3>
-                <a class="post-link" href="{{ post.url | relative_url }}">
-                  {{ post.title | escape }}
-                </a>
-              </h3>
-              {% if post.description %}
-                <blockquote>
-                  {{ post.description | markdownify | remove: '<p>' | remove: '</p>' }}
-                </blockquote>
-              {% elsif site.show_excerpts and post.excerpt %}
-                <blockquote>
-                  {{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
-                </blockquote>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+        {% comment %}
+          Transpile list of posts into HTML
+        {% endcomment %}
+        {% if target_posts.size %}
+          {% if posts_sort_by.size > 0 %}
+            {% assign target_posts = target_posts | sort: posts_sort_by %}
+          {% endif %}
+
+          {% if posts_reverse == true %}
+            {% assign target_posts = target_posts | reverse %}
+          {% endif %}
+
+          <h2 class="post-list-heading" id="{{ list_title_id }}">{{ list_title }}</h2>
+          <ul class="post-list">
+            {% for post in target_posts %}
+              <li>
+                <span class="post-meta">{{ post.date | date: date_format }}</span>
+                <h3>
+                  <a class="post-link" href="{{ post.url | relative_url }}">
+                    {{ post.title | escape }}
+                  </a>
+                </h3>
+                {% if post.description %}
+                  <blockquote>
+                    {{ post.description | markdownify | remove: '<p>' | remove: '</p>' }}
+                  </blockquote>
+                {% elsif site.show_excerpts and post.excerpt %}
+                  <blockquote>
+                    {{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
+                  </blockquote>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       {% endcapture %}
 
 
@@ -87,7 +101,7 @@ author: S0AndS0
       {% comment %}
         Builds output for workspace__collection_home
       {% endcomment %}
-      {% if has_output %}
+      {% if target_posts.size %}
         {{ workspace__collection__list }}{% assign workspace__collection__list = nil %}
 
         {% if has_rss_feed or has_atom_feed or has_rss_feed %}
@@ -131,6 +145,8 @@ author: S0AndS0
             {% endif %}
           </p>
         {% endif %}
+
+        {% assign target_posts = nil %}
       {% endif %}
 
     {% endif %}
